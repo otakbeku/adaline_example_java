@@ -10,6 +10,7 @@ public class Adaline {
     private double net;
     private double tolerance_value;
     private double target;
+    private double[] bobot;
 
 
 //    public double updateY_in(double x1, double x2, double w1, double w2) {
@@ -23,6 +24,24 @@ public class Adaline {
         this.bias = bobotAwal;
         this.w1 = bobotAwal;
         this.w2 = bobotAwal;
+    }
+
+    public void setBobotAwal(double[] bobotAwal) {
+        this.bobot = bobotAwal;
+    }
+
+    public double getBobotByIndex(int index) {
+        return this.bobot[index];
+    }
+
+    public void updateAllBobot(double[] inputXi) {
+        for (int i = 0; i < this.bobot.length; i++) {
+            this.bobot[i] = this.bobot[i] + (this.alpha * (1 - this.getY_in()) * inputXi[i]);
+        }
+    }
+
+    public void updateBobot(double inputXi, int index) {
+        this.bobot[index] = this.bobot[index] + (this.alpha * (1 - this.getY_in()) * inputXi);
     }
 
     public void setLearningRate(double learningRate) {
@@ -68,7 +87,7 @@ public class Adaline {
     }
 
     public void setDbias(double target, double y_in) {
-        Dbias = this.alpha*(target-y_in);
+        Dbias = this.alpha * (target - y_in);
     }
 
     public double getDw1() {
@@ -76,7 +95,7 @@ public class Adaline {
     }
 
     public void setDw1(double target, double x1, double y_in) {
-        this.Dw1 = this.alpha*(target-y_in)*x1;
+        this.Dw1 = this.alpha * (target - y_in) * x1;
     }
 
     public double getDw2() {
@@ -84,7 +103,7 @@ public class Adaline {
     }
 
     public void setDw2(double target, double x2, double y_in) {
-        this.Dw2 = this.alpha*(target-y_in)*x2;
+        this.Dw2 = this.alpha * (target - y_in) * x2;
     }
 
 
@@ -119,6 +138,7 @@ public class Adaline {
     public void updateW2(double target, double y_in, double x2, double w2) {
         this.w2 = w2 + (this.alpha * (target - y_in) * x2);
     }
+
     public void updateBias(double bias, double target, double y_in) {
         this.bias = bias + (this.alpha * (target - y_in));
     }

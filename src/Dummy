@@ -1,0 +1,140 @@
+//        ADALINE-SUDAH BISA
+//        try {
+//            //Baca file
+//            FileInputStream file = new FileInputStream(new File("Adaline.xls"));
+////            //Ambil workbook
+////            XSSFWorkbook workbook = new XSSFWorkbook(file);
+////            //Ambil sheet pertama
+////            XSSFSheet sheet = workbook.getSheetAt(0);
+//            HSSFWorkbook workbook = new HSSFWorkbook(file);
+//            HSSFSheet sheet = workbook.getSheetAt(0);
+////            //iterator untuk baris
+////            Iterator<Row> rowIterator = sheet.iterator();
+////            //iterator untuk kolom
+////            Iterator<Cell> cellIterator = row.cellIterator();
+//
+//            Cell cell = null;
+//
+//            Row header = sheet.createRow(0);
+//            header.createCell(0).setCellValue("EPOCH");
+//            header.createCell(1).setCellValue("X1");
+//            header.createCell(2).setCellValue("X2");
+//            header.createCell(3).setCellValue("1");
+//            header.createCell(4).setCellValue("net");
+//            header.createCell(5).setCellValue("Target");
+//            header.createCell(6).setCellValue("t-y");
+//            header.createCell(7).setCellValue("Dw1");
+//            header.createCell(8).setCellValue("Dw2");
+//            header.createCell(9).setCellValue("Dbias");
+//            header.createCell(10).setCellValue("w1");
+//            header.createCell(11).setCellValue("w2");
+//            header.createCell(12).setCellValue("bias");
+//            header.createCell(13).setCellValue("Error");
+//            header.createCell(14).setCellValue("Delta Weight (MAX)");
+//            //UNTUK BOBOT DAN BIAS
+//            Row headerBobotBias = sheet.createRow(1);
+//            headerBobotBias.createCell(10).setCellValue(0);
+//            headerBobotBias.createCell(11).setCellValue(0);
+//            headerBobotBias.createCell(12).setCellValue(0);
+//
+//
+//            Row dataRow = null;
+//
+//            //BAGIAN ADALINE
+//            Adaline adl1 = new Adaline();
+//            System.out.println("Program Adaline");
+//            int epoch = 0;
+//
+//            double[] x1 = {1, 1, -1, -1};
+//            double[] x2 = {1, -1, 1, -1};
+//            double[] target = {1, -1, -1, -1};
+//
+//            double w1Akhir, w2Akhir, biasAkhir;
+//            int row =2;
+//
+//
+//            adl1.setBobotAwal(0);
+//            adl1.setTolerance_value(0.05);
+//            adl1.setLearningRate(0.1);
+//            do {
+//                dataRow = sheet.createRow((row++));
+//                System.out.println("EPOCH: " + (++epoch));
+//                dataRow.createCell(0).setCellValue(epoch);
+////                System.out.println("X1 X2 1 \t t \t net \t f(net) \t t-y \t Dw1 Dw2 Db \t w1 w2 b");
+//                for (int i = 0; i < 4; i++) {
+//                    // NGISI
+//                    dataRow = sheet.createRow((row++));
+//                    dataRow.createCell(1).setCellValue(x1[i]);
+//                    dataRow.createCell(2).setCellValue(x2[i]);
+//                    dataRow.createCell(3).setCellValue(1);
+//
+//
+//                    double XiWi = (x1[i] * adl1.getW1()) + (x2[i] * adl1.getW2());
+//                    adl1.setNet(XiWi, adl1.getBias());
+//
+//                    dataRow.createCell(4).setCellValue(XiWi);
+//                    dataRow.createCell(5).setCellValue(target[i]);
+//
+//                    //DELTA W & B
+//                    adl1.setDw1(target[i], x1[i], adl1.getY_in());
+//                    adl1.setDw2(target[i], x2[i], adl1.getY_in());
+//                    adl1.setDbias(target[i], adl1.getY_in());
+//                    //set error
+//                    adl1.setError(target[i], adl1.getY_in());
+//
+//
+//                    if (adl1.getY_in() != target[i]) {
+//                        adl1.updateW1(target[i], adl1.getY_in(), x1[i], adl1.getW1());
+//                        adl1.updateW2(target[i], adl1.getY_in(), x2[i], adl1.getW2());
+//                        adl1.updateBias(adl1.getBias(), target[i], adl1.getY_in());
+//                    }
+//                    double t_y = target[i] - adl1.getY_in();
+////                    System.out.println(x1[i] + " " + x2[i] + " " + 1 + " \t" + target[i] + "\t" + adl1.getY_in() + " \t" + adl1.getY_in() + " \t" + t_y + "\t " + adl1.getDw1() + " " + adl1.getDw2() + " " + adl1.getDbias() + " \t" + adl1.getW1() + " " + adl1.getW2() + " " + adl1.getBias());
+//
+//                    dataRow.createCell(6).setCellValue(t_y);
+//                    dataRow.createCell(7).setCellValue(adl1.getDw1());
+//                    dataRow.createCell(8).setCellValue(adl1.getDw2());
+//                    dataRow.createCell(9).setCellValue(adl1.getBias());
+//                    dataRow.createCell(10).setCellValue(adl1.getW1());
+//                    dataRow.createCell(11).setCellValue(adl1.getW2());
+//                    dataRow.createCell(12).setCellValue(adl1.getBias());
+//                    dataRow.createCell(13).setCellValue(adl1.getError());
+//                    dataRow.createCell(14).setCellValue(adl1.getMaxWeight());
+//
+//                    System.out.println("ERROR: " + adl1.getError());
+//                    System.out.println("nilai w max: " + adl1.getMaxWeight());
+//
+//                }
+//            } while (adl1.getTolerance_value() < adl1.getMaxWeight());
+//            file.close();
+//            FileOutputStream out = new FileOutputStream(new File("Adaline.xls"));
+//            workbook.write(out);
+//            out.close();
+//
+//            // UJI BOBOT AKHIR
+//            w1Akhir = adl1.getW1();
+//            w2Akhir = adl1.getW2();
+//            biasAkhir = adl1.getBias();
+//
+//            // FUNGSI AKTIVASI THRESHOLD 0
+//            System.out.println("W1: " + w1Akhir);
+//            System.out.println("W2: " + w2Akhir);
+//            System.out.println("bias: " + biasAkhir);
+//            for (int i = 0; i < 4; i++) {
+//                double net = (x1[i] * w1Akhir) + (x2[i] * w2Akhir) + biasAkhir;
+//                System.out.println("nilai net: " + net);
+//                if (net >= 0) {
+//                    double y = 1;
+//                    System.out.println("nilai y: " + y);
+//                } else if (net < 0) {
+//                    double y = -1;
+//                    System.out.println("nilai y: " + y);
+//                }
+//
+//            }
+//
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }

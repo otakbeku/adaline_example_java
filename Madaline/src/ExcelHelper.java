@@ -8,10 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
- * Created by Kotak Hitam on 4/2/2017.
+ * Created by Kotak Hitam on 4/16/2017.
  */
-public class ExcelWritter {
-    public ExcelWritter() throws IOException {
+public class ExcelHelper {
+    public ExcelHelper() throws IOException {
         try {
             FileInputStream file = new FileInputStream(new File("Madaline_fertility.xls"));
             HSSFWorkbook workbook = new HSSFWorkbook(file);
@@ -149,11 +149,11 @@ public class ExcelWritter {
             headerBobot.createCell(75).setCellValue(0);
 
 
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
