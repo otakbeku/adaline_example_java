@@ -2,16 +2,22 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by Kotak Hitam on 4/16/2017.
  */
 public class ExcelHelper {
+    /**
+     * MASIH STATIC, BELUM BISA DI PAKAI UNTUK KEPERLUAN LAIN
+     *
+     * @throws IOException
+     */
     public ExcelHelper() throws IOException {
+
+    }
+
+    public void PROCESSING() {
         try {
             FileInputStream file = new FileInputStream(new File("Madaline_fertility.xls"));
             HSSFWorkbook workbook = new HSSFWorkbook(file);
@@ -32,128 +38,164 @@ public class ExcelHelper {
             header.createCell(10).setCellValue("hidden layer 1");
             header.createCell(11).setCellValue("hidden layer 2");
             header.createCell(12).setCellValue("hidden layer 3");
-            header.createCell(13).setCellValue("Y_in");
-            header.createCell(14).setCellValue("Target");
-            header.createCell(15).setCellValue("t-y");
+            header.createCell(13).setCellValue("hidden layer 4");
+            header.createCell(14).setCellValue("hidden layer 5");
+            header.createCell(15).setCellValue("hidden layer 6");
+            header.createCell(16).setCellValue("hidden layer 7");
+            header.createCell(17).setCellValue("hidden layer 8");
+            header.createCell(18).setCellValue("hidden layer 9");
+
+
+            header.createCell(19).setCellValue("Y_in/NET");
+            header.createCell(20).setCellValue("Target");
+            header.createCell(21).setCellValue("t-y");
+            ////////////////////////////////////////////////
             //HIDDEN LAYER 1
-            header.createCell(16).setCellValue("Dw1-1");
-            header.createCell(17).setCellValue("Dw2-1");
-            header.createCell(18).setCellValue("Dw3-1");
-            header.createCell(19).setCellValue("Dw4-1");
-            header.createCell(20).setCellValue("Dw5-1");
-            header.createCell(21).setCellValue("Dw6-1");
-            header.createCell(22).setCellValue("Dw7-1");
-            header.createCell(23).setCellValue("Dw8-1");
-            header.createCell(24).setCellValue("Dw9-1");
-            header.createCell(25).setCellValue("DBias-1");
+            for (int i = 0; i < 9; i++) {
+                header.createCell(22 + i).setCellValue("Delta W1-" + (i + 1));
+            }
+            header.createCell(31).setCellValue("Delta Bias-1");
+
             //HIDDEN LAYER 2
-            header.createCell(26).setCellValue("Dw1-2");
-            header.createCell(27).setCellValue("Dw2-2");
-            header.createCell(28).setCellValue("Dw3-2");
-            header.createCell(29).setCellValue("Dw4-2");
-            header.createCell(30).setCellValue("Dw5-2");
-            header.createCell(31).setCellValue("Dw6-2");
-            header.createCell(32).setCellValue("Dw7-2");
-            header.createCell(33).setCellValue("Dw8-2");
-            header.createCell(34).setCellValue("Dw9-2");
-            header.createCell(35).setCellValue("Dbias-2");
-            // HIDDEN LAYER 3
-            header.createCell(36).setCellValue("Dw1-3");
-            header.createCell(37).setCellValue("Dw2-3");
-            header.createCell(38).setCellValue("Dw3-3");
-            header.createCell(39).setCellValue("Dw4-3");
-            header.createCell(40).setCellValue("Dw5-3");
-            header.createCell(41).setCellValue("Dw6-3");
-            header.createCell(42).setCellValue("Dw7-3");
-            header.createCell(43).setCellValue("Dw8-3");
-            header.createCell(44).setCellValue("Dw9-3");
-            header.createCell(45).setCellValue("DBias-3");
-            //Bobot, bias dan error
-            //HD1
-            header.createCell(46).setCellValue("w1-1");
-            header.createCell(47).setCellValue("w2-1");
-            header.createCell(48).setCellValue("w3-1");
-            header.createCell(49).setCellValue("w4-1");
-            header.createCell(50).setCellValue("w5-1");
-            header.createCell(51).setCellValue("w6-1");
-            header.createCell(52).setCellValue("w7-1");
-            header.createCell(53).setCellValue("w8-1");
-            header.createCell(54).setCellValue("w9-1");
-            header.createCell(55).setCellValue("bias-1");
-            //HD2
-            header.createCell(56).setCellValue("w1-2");
-            header.createCell(57).setCellValue("w2-2");
-            header.createCell(58).setCellValue("w3-2");
-            header.createCell(59).setCellValue("w4-2");
-            header.createCell(60).setCellValue("w5-2");
-            header.createCell(61).setCellValue("w6-2");
-            header.createCell(62).setCellValue("w7-2");
-            header.createCell(63).setCellValue("w8-2");
-            header.createCell(64).setCellValue("w9-2");
-            header.createCell(65).setCellValue("bias-2");
-            //HD3
-            header.createCell(66).setCellValue("w1-3");
-            header.createCell(67).setCellValue("w2-3");
-            header.createCell(68).setCellValue("w3-3");
-            header.createCell(69).setCellValue("w4-3");
-            header.createCell(70).setCellValue("w5-3");
-            header.createCell(71).setCellValue("w6-3");
-            header.createCell(72).setCellValue("w7-3");
-            header.createCell(73).setCellValue("w8-3");
-            header.createCell(74).setCellValue("w9-3");
-            header.createCell(75).setCellValue("bias-3 ");
+            for (int i = 0; i < 9; i++) {
+                header.createCell(32 + i).setCellValue("Delta W2-" + (i + 1));
+            }
+            header.createCell(41).setCellValue("Delta Bias-2");
 
+            //HIDDEN LAYER 3
+            for (int i = 0; i < 9; i++) {
+                header.createCell(42 + i).setCellValue("Delta W3-" + (i + 1));
+            }
+            header.createCell(51).setCellValue("Delta Bias-3");
 
-            header.createCell(76).setCellValue("v1");
-            header.createCell(77).setCellValue("v2");
-            header.createCell(78).setCellValue("v3");
-            header.createCell(79).setCellValue("bias y_in");
-            header.createCell(80).setCellValue("Dv1");
-            header.createCell(81).setCellValue("Dv2");
-            header.createCell(82).setCellValue("Dv3");
-            header.createCell(83).setCellValue("Delta bias y_in");
-            header.createCell(84).setCellValue("ERROR");
+            //HIDDEN LAYER 4
+            for (int i = 0; i < 9; i++) {
+                header.createCell(52 + i).setCellValue("Delta W2-" + (i + 1));
+            }
+            header.createCell(61).setCellValue("Delta Bias-4");
+
+            //HIDDEN LAYER 5
+            for (int i = 0; i < 9; i++) {
+                header.createCell(62 + i).setCellValue("Delta W2-" + (i + 1));
+            }
+            header.createCell(71).setCellValue("Delta Bias-5");
+
+            //HIDDEN LAYER 6
+            for (int i = 0; i < 9; i++) {
+                header.createCell(72 + i).setCellValue("Delta W2-" + (i + 1));
+            }
+            header.createCell(81).setCellValue("Delta Bias-6");
+
+            //HIDDEN LAYER 7
+            for (int i = 0; i < 9; i++) {
+                header.createCell(82 + i).setCellValue("Delta W2-" + (i + 1));
+            }
+            header.createCell(91).setCellValue("Delta Bias-7");
+
+            //HIDDEN LAYER 8
+            for (int i = 0; i < 9; i++) {
+                header.createCell(92 + i).setCellValue("Delta W2-" + (i + 1));
+            }
+            header.createCell(101).setCellValue("Delta Bias-8");
+
+            //HIDDEN LAYER 9
+            for (int i = 0; i < 9; i++) {
+                header.createCell(102 + i).setCellValue("Delta W2-" + (i + 1));
+            }
+            header.createCell(111).setCellValue("Delta Bias-9");
+
+            //CELL 112
+////////////////////////////////////////////////////////////////////////
+            //BOBOT HIDDEN LAYER 1
+            for (int i = 0; i < 9; i++) {
+                header.createCell(112 + i).setCellValue("w1-" + (i + 1));
+            }
+            header.createCell(121).setCellValue("Bias-1");
+
+            //BOBOT HIDDEN LAYER 2
+            for (int i = 0; i < 9; i++) {
+                header.createCell(122 + i).setCellValue("w2-" + (i + 1));
+            }
+            header.createCell(131).setCellValue("Bias-2");
+
+            //BOBOT HIDDEN LAYER 3
+            for (int i = 0; i < 9; i++) {
+                header.createCell(132 + i).setCellValue("w3-" + (i + 1));
+            }
+            header.createCell(141).setCellValue("Bias-3");
+
+            //BOBOT HIDDEN LAYER 4
+            for (int i = 0; i < 9; i++) {
+                header.createCell(142 + i).setCellValue("w4-" + (i + 1));
+            }
+            header.createCell(151).setCellValue("Bias-4");
+
+            //BOBOT HIDDEN LAYER 5
+            for (int i = 0; i < 9; i++) {
+                header.createCell(152 + i).setCellValue("w5-" + (i + 1));
+            }
+            header.createCell(161).setCellValue("Bias-5");
+
+            //BOBOT HIDDEN LAYER 6
+            for (int i = 0; i < 9; i++) {
+                header.createCell(162 + i).setCellValue("w6-" + (i + 1));
+            }
+            header.createCell(171).setCellValue("Bias-6");
+
+            //BOBOT HIDDEN LAYER 7
+            for (int i = 0; i < 9; i++) {
+                header.createCell(172 + i).setCellValue("w7-" + (i + 1));
+            }
+            header.createCell(181).setCellValue("Bias-7");
+
+            //BOBOT HIDDEN LAYER 8
+            for (int i = 0; i < 9; i++) {
+                header.createCell(182 + i).setCellValue("w8-" + (i + 1));
+            }
+            header.createCell(191).setCellValue("Bias-8");
+
+            //BOBOT HIDDEN LAYER 9
+            for (int i = 0; i < 9; i++) {
+                header.createCell(192 + i).setCellValue("w9-" + (i + 1));
+            }
+            header.createCell(201).setCellValue("Bias-9");
+//////////////////////////////////////////////////////////////////////
+            //CELL 202
+            header.createCell(202).setCellValue("v1");
+            header.createCell(203).setCellValue("v2");
+            header.createCell(204).setCellValue("v3");
+            header.createCell(205).setCellValue("v4");
+            header.createCell(206).setCellValue("v5");
+            header.createCell(207).setCellValue("v6");
+            header.createCell(208).setCellValue("v7");
+            header.createCell(209).setCellValue("v8");
+            header.createCell(210).setCellValue("v9");
+            header.createCell(211).setCellValue("Bias y_in/NET");
+            header.createCell(212).setCellValue("ERROR");
 
             //HEADER BOBOT DAN BIAS
             Row headerBobot = sheet.createRow(1);
-            headerBobot.createCell(46).setCellValue(0);
-            headerBobot.createCell(47).setCellValue(0);
-            headerBobot.createCell(48).setCellValue(0);
-            headerBobot.createCell(49).setCellValue(0);
-            headerBobot.createCell(50).setCellValue(0);
-            headerBobot.createCell(51).setCellValue(0);
-            headerBobot.createCell(52).setCellValue(0);
-            headerBobot.createCell(53).setCellValue(0);
-            headerBobot.createCell(54).setCellValue(0);
-            headerBobot.createCell(55).setCellValue(0);
-            headerBobot.createCell(56).setCellValue(0);
-            headerBobot.createCell(57).setCellValue(0);
-            headerBobot.createCell(58).setCellValue(0);
-            headerBobot.createCell(59).setCellValue(0);
-            headerBobot.createCell(60).setCellValue(0);
-            headerBobot.createCell(61).setCellValue(0);
-            headerBobot.createCell(62).setCellValue(0);
-            headerBobot.createCell(63).setCellValue(0);
-            headerBobot.createCell(64).setCellValue(0);
-            headerBobot.createCell(65).setCellValue(0);
-            headerBobot.createCell(66).setCellValue(0);
-            headerBobot.createCell(66).setCellValue(0);
-            headerBobot.createCell(67).setCellValue(0);
-            headerBobot.createCell(68).setCellValue(0);
-            headerBobot.createCell(69).setCellValue(0);
-            headerBobot.createCell(70).setCellValue(0);
-            headerBobot.createCell(71).setCellValue(0);
-            headerBobot.createCell(72).setCellValue(0);
-            headerBobot.createCell(73).setCellValue(0);
-            headerBobot.createCell(74).setCellValue(0);
-            headerBobot.createCell(75).setCellValue(0);
+            for (int i = 0; i < 90; i++) {
+                headerBobot.createCell(112 + i).setCellValue(0);
+            }
+            for (int i = 0; i < 10; i++) {
+                headerBobot.createCell(202 + i).setCellValue(0.5);
+            }
 
+
+            //KALO UDAH SELESAI
+            file.close();
+            FileOutputStream out = new FileOutputStream(new File("Madaline_fertility.xls"));
+            workbook.write(out);
+            out.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    
     }
+
 
 }

@@ -12,6 +12,7 @@ public class Madaline {
     private double tolerance_value;
     private double error;
     private double alpha;
+    private double yInput;
 
 
     //CONSTRUCTOR
@@ -27,14 +28,78 @@ public class Madaline {
     }
 
     //METHOD PELENGKAP
-    public void setVBobotAndVBias(double value, int jumlahNodeAdaline) {
-        this.vBobotMadaline = new double[jumlahNodeAdaline];
-        for (int i = 0; i < jumlahNodeAdaline; i++) {
+    public void setVBobotAndVBias(double value) {
+        this.vBobotMadaline = new double[this.adalineList.size()];
+        for (int i = 0; i < this.adalineList.size(); i++) {
             this.vBobotMadaline[i] = value;
         }
         this.vBiasMadaline = value;
 
     }
+
+    public void setNetEachAdaline(double[] xInput) {
+        for (int i = 0; i < this.adalineList.size(); i++) {
+            this.adalineList.get(i).setNet(xInput);
+        }
+    }
+
+    public void updateBobotAndBiasEachAdaline(double[] xInput) {
+        if (this.target == 1) {
+            for (int i = 0; i < this.adalineList.size(); i++) {
+//                System.out.println("Dalem: "+i);
+                for (int j = 0; j < xInput.length; j++) {
+//                    System.out.println("Dalemdalem: "+j);
+                    this.adalineList.get(i).updateBobotPLUSByIndex(j, xInput[j]);
+                }
+                this.adalineList.get(i).updateBiasPLUS();
+            }
+        } else if (this.target == -1) {
+            for (int i = 0; i < this.adalineList.size(); i++) {
+                for (int j = 0; j < xInput.length; j++) {
+                    this.adalineList.get(i).updateBobotMINUSByIndex(j, xInput[j]);
+                }
+                this.adalineList.get(i).updateBiasMINUS();
+            }
+        }
+    }
+
+    public double getDeltaBobotAdalineByIndex(int indexAdaline, int indexDeltaBobot) {
+//        double bobotAdaline = this.adalineList.get(indexAdaline).getDeltaBobotByIndex(indexDeltaBobot);
+        return this.adalineList.get(indexAdaline).getDeltaBobotByIndex(indexDeltaBobot);
+    }
+
+    public double getBobotAdalineByIndex(int indexAdaline, int indexDeltaBobot) {
+//        double bobotAdaline = this.adalineList.get(indexAdaline).getBobotByIndex(indexDeltaBobot);
+        return this.adalineList.get(indexAdaline).getBobotByIndex(indexDeltaBobot);
+    }
+
+    public double getBiasAdalineByIndex(int indexAdaline) {
+//        double bias = this.adalineList.get(indexAdaline).getBias();
+        return this.adalineList.get(indexAdaline).getBias();
+    }
+
+    public void setYInputMadaline() {
+        for (int i = 0; i < this.adalineList.size(); i++) {
+            this.yInput = this.adalineList.get(i).getNet() * this.vBobotMadaline[i];
+        }
+        this.yInput += yInput + this.vBiasMadaline;
+    }
+
+    public double getyInput() {
+        return this.yInput;
+    }
+
+    public void setTargetEachAdaline(double target) {
+        for (int i = 0; i < this.adalineList.size(); i++) {
+            this.adalineList.get(i).setTarget(target);
+        }
+    }
+
+    public double getNetFromAdalineByIndex(int index) {
+//        double net = this.adalineList.get(index).getNet();
+        return this.adalineList.get(index).getNet();
+    }
+
 
     //SETTER AND GETTER
     public List<Adaline> getAdalineList() {
@@ -47,6 +112,10 @@ public class Madaline {
 
     public double[] getvBobotMadaline() {
         return vBobotMadaline;
+    }
+
+    public double getvBobotMadalineByIndex(int indexBobot) {
+        return vBobotMadaline[indexBobot];
     }
 
     public void setvBobotMadaline(double[] vBobotMadaline) {
@@ -67,6 +136,7 @@ public class Madaline {
 
     public void setTarget(double target) {
         this.target = target;
+        this.setTargetEachAdaline(this.target);
     }
 
     public double getTolerance_value() {
@@ -91,5 +161,8 @@ public class Madaline {
 
     public void setAlpha(double alpha) {
         this.alpha = alpha;
+        for (int i = 0; i < this.adalineList.size(); i++) {
+            this.adalineList.get(i).setAlpha(alpha);
+        }
     }
 }

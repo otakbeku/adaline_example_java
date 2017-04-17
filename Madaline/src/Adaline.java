@@ -28,6 +28,7 @@ public class Adaline {
         this.bobot = new ArrayList<>();
         this.deltaBobot = new ArrayList<>();
         this.setBobotAwalToZero(jumlahBobot);
+        this.setDeltaBobotAwalToZero(jumlahBobot);
         this.setBias(0.0);
         this.setDeltaBias(0.0);
     }
@@ -63,6 +64,13 @@ public class Adaline {
         }
     }
 
+    public void setDeltaBobotAwalToZero(int jumlahBobot) {
+//        this.bobot.forEach(b -> b = 0.0);
+        for (int i = 0; i < jumlahBobot; i++) {
+            this.deltaBobot.add(0.0);
+        }
+    }
+
     //UPDATE BOBOT
     public void updateBobotByIndex(int index, Double inputXi) {
         this.bobot.set(index, (this.bobot.get(index) + (this.getAlpha() * (this.getTargetAsDoubleObj() - this.getNetAsDoubleObj()) * inputXi)));
@@ -72,6 +80,30 @@ public class Adaline {
         this.setBias((this.getBias() + (this.getAlpha() * (this.getTargetAsDoubleObj() - this.getNetAsDoubleObj()))));
     }
 
+    //UPDATE BOBOT MRI
+    public void updateBobotPLUSByIndex(int index, Double inputXi) {
+        this.bobot.set(index, (this.bobot.get(index) + (this.getAlpha() * (1 - this.getNetAsDoubleObj()) * inputXi)));
+    }
+
+    public void updateBiasPLUS() {
+        this.setBias((this.getBias() + (this.getAlpha() * (1 - this.getNetAsDoubleObj()))));
+    }
+
+    public void updateBobotMINUSByIndex(int index, Double inputXi) {
+        this.bobot.set(index, (this.bobot.get(index) + (this.getAlpha() * (-1 - this.getNetAsDoubleObj()) * inputXi)));
+    }
+
+    public void updateBiasMINUS() {
+        this.setBias((this.getBias() + (this.getAlpha() * (-1 - this.getNetAsDoubleObj()))));
+    }
+
+    public double getDeltaBobotByIndex(int index) {
+        return this.deltaBobot.get(index);
+    }
+
+    public double getBobotByIndex(int index) {
+        return this.bobot.get(index);
+    }
     //SETTER AND GETTER
 
     public double[] getBobot() {
@@ -128,7 +160,7 @@ public class Adaline {
     }
 
     public double getNet() {
-        return net;
+        return this.net;
     }
 
     public Double getNetAsDoubleObj() {
@@ -140,7 +172,7 @@ public class Adaline {
         for (int i = 0; i < inputXi.length; i++) {
             net += this.bobot.get(i) * inputXi[i];
         }
-        this.net = net;
+        this.net = net + this.bias;
     }
 
     public double getTarget() {
