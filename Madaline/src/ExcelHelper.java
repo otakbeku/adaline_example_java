@@ -194,8 +194,72 @@ public class ExcelHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    
+
     }
 
+    public void PROCESSINGFORTESTING() {
+        try {
+            FileInputStream file = new FileInputStream(new File("Madaline_fertility_Testing.xls"));
+            HSSFWorkbook workbook = new HSSFWorkbook(file);
+            HSSFSheet sheet = workbook.getSheetAt(0);
+//            Cell cell = null;
+            //MEMBUAT HEADER PADA EXCEL
+            Row header = sheet.createRow(0);
+            header.createCell(0).setCellValue("EPOCH");
+            header.createCell(1).setCellValue("MUSIM");
+            header.createCell(2).setCellValue("UMUR");
+            header.createCell(3).setCellValue("PENYAKIT KETIKA KECIL");
+            header.createCell(4).setCellValue("KECELAKAAN/TRAUMA");
+            header.createCell(5).setCellValue("BEDAH");
+            header.createCell(6).setCellValue("DEMAM DALAM 1 TAHUN TERAKHIR");
+            header.createCell(7).setCellValue("KONSUMSI ALKOHOL");
+            header.createCell(8).setCellValue("KEBIASAAN MEROKOK");
+            header.createCell(9).setCellValue("DURASI DUDUK/HARI");
+            header.createCell(10).setCellValue("hidden layer 1");
+            header.createCell(11).setCellValue("hidden layer 2");
+            header.createCell(12).setCellValue("hidden layer 3");
+            header.createCell(13).setCellValue("hidden layer 4");
+            header.createCell(14).setCellValue("hidden layer 5");
+            header.createCell(15).setCellValue("hidden layer 6");
+            header.createCell(16).setCellValue("hidden layer 7");
+            header.createCell(17).setCellValue("hidden layer 8");
+            header.createCell(18).setCellValue("hidden layer 9");
+
+
+            header.createCell(19).setCellValue("Y_in/NET");
+            header.createCell(20).setCellValue("Target");
+            header.createCell(21).setCellValue("t-y");
+
+            header.createCell(22).setCellValue("v1");
+            header.createCell(23).setCellValue("v2");
+            header.createCell(24).setCellValue("v3");
+            header.createCell(25).setCellValue("v4");
+            header.createCell(26).setCellValue("v5");
+            header.createCell(27).setCellValue("v6");
+            header.createCell(28).setCellValue("v7");
+            header.createCell(29).setCellValue("v8");
+            header.createCell(30).setCellValue("v9");
+            header.createCell(31).setCellValue("Bias y_in/NET");
+            header.createCell(32).setCellValue("ERROR");
+
+            //HEADER BOBOT DAN BIAS
+            Row headerBobot = sheet.createRow(1);
+            for (int i = 0; i < 10; i++) {
+                headerBobot.createCell(22 + i).setCellValue(0.5);
+            }
+
+
+            //KALO UDAH SELESAI
+            file.close();
+            FileOutputStream out = new FileOutputStream(new File("Madaline_fertility_Testing.xls"));
+            workbook.write(out);
+            out.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

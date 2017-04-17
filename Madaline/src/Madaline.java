@@ -13,6 +13,7 @@ public class Madaline {
     private double error;
     private double alpha;
     private double yInput;
+    private double threshold;
 
 
     //CONSTRUCTOR
@@ -43,22 +44,34 @@ public class Madaline {
         }
     }
 
+    public double getY() {
+        double y = 0;
+        if (this.getyInput() >= this.threshold) {
+            y = 1;
+        } else if (this.getyInput() < this.threshold) {
+            y = -1;
+        }
+        return y;
+    }
+
     public void updateBobotAndBiasEachAdaline(double[] xInput) {
-        if (this.target == 1) {
-            for (int i = 0; i < this.adalineList.size(); i++) {
+        if (getY() - this.target > 0) {
+            if (this.target == 1) {
+                for (int i = 0; i < this.adalineList.size(); i++) {
 //                System.out.println("Dalem: "+i);
-                for (int j = 0; j < xInput.length; j++) {
+                    for (int j = 0; j < xInput.length; j++) {
 //                    System.out.println("Dalemdalem: "+j);
-                    this.adalineList.get(i).updateBobotPLUSByIndex(j, xInput[j]);
+                        this.adalineList.get(i).updateBobotPLUSByIndex(j, xInput[j]);
+                    }
+                    this.adalineList.get(i).updateBiasPLUS();
                 }
-                this.adalineList.get(i).updateBiasPLUS();
-            }
-        } else if (this.target == -1) {
-            for (int i = 0; i < this.adalineList.size(); i++) {
-                for (int j = 0; j < xInput.length; j++) {
-                    this.adalineList.get(i).updateBobotMINUSByIndex(j, xInput[j]);
+            } else if (this.target == -1) {
+                for (int i = 0; i < this.adalineList.size(); i++) {
+                    for (int j = 0; j < xInput.length; j++) {
+                        this.adalineList.get(i).updateBobotMINUSByIndex(j, xInput[j]);
+                    }
+                    this.adalineList.get(i).updateBiasMINUS();
                 }
-                this.adalineList.get(i).updateBiasMINUS();
             }
         }
     }
@@ -76,6 +89,10 @@ public class Madaline {
     public double getBiasAdalineByIndex(int indexAdaline) {
 //        double bias = this.adalineList.get(indexAdaline).getBias();
         return this.adalineList.get(indexAdaline).getBias();
+    }
+    public double getDeltaBiasAdalineByIndex(int indexAdaline) {
+//        double bias = this.adalineList.get(indexAdaline).getBias();
+        return this.adalineList.get(indexAdaline).getDeltaBias();
     }
 
     public void setYInputMadaline() {
@@ -102,6 +119,19 @@ public class Madaline {
 
 
     //SETTER AND GETTER
+
+    public void setyInput(double yInput) {
+        this.yInput = yInput;
+    }
+
+    public double getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(double threshold) {
+        this.threshold = threshold;
+    }
+
     public List<Adaline> getAdalineList() {
         return adalineList;
     }
@@ -165,4 +195,5 @@ public class Madaline {
             this.adalineList.get(i).setAlpha(alpha);
         }
     }
+
 }

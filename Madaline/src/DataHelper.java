@@ -12,8 +12,9 @@ import java.io.IOException;
  */
 public class DataHelper {
     private double[][] dataTraining = new double[9][51];
-    private double[][] dataUji = new double[50][];
+    private double[][] dataUji = new double[9][51];
     private double[] targetTraining = new double[50];
+    private double[] targetUji = new double[50];
     FileInputStream file = null;
     HSSFWorkbook workbook = null;
     HSSFSheet sheet = null;
@@ -32,7 +33,7 @@ public class DataHelper {
             for (int j = 0; j < 9; j++) {
                 for (int k = 1; k < 50; k++) {
                     cell = this.sheet.getRow(k).getCell(j);
-                    this.dataTraining[j][k-1] = cell.getNumericCellValue();
+                    this.dataTraining[j][k - 1] = cell.getNumericCellValue();
 //                    System.out.println("training: "+this.dataTraining[j][k]);
                 }
             }
@@ -40,10 +41,10 @@ public class DataHelper {
             for (int i = 1; i < 50; i++) {
                 cell = this.sheet.getRow(i).getCell(9);
                 if (cell.getStringCellValue().equalsIgnoreCase("N")) {
-                    this.targetTraining[i-1] = 1;
+                    this.targetTraining[i - 1] = 1;
 //                    System.out.println("target "+this.targetTraining[i]);
                 } else if (cell.getStringCellValue().equalsIgnoreCase("O")) {
-                    this.targetTraining[i-1] = -1;
+                    this.targetTraining[i - 1] = -1;
 //                    System.out.println("target "+this.targetTraining[i]);
                 }
 //                System.out.println("target "+this.targetTraining[i-1]);
@@ -82,5 +83,47 @@ public class DataHelper {
     public double[] getTargetTraining() throws IOException {
         this.setDataTraining();
         return this.targetTraining;
+    }
+
+    public void setDataUji() throws IOException {
+        try {
+            this.file = new FileInputStream(new File("dataset.xls"));
+            this.workbook = new HSSFWorkbook(file);
+            this.sheet = workbook.getSheetAt(0);
+            Cell cell = null;
+            for (int j = 0; j < 9; j++) {
+                for (int k = 1; k < 50; k++) {
+                    cell = this.sheet.getRow(50+k).getCell(j);
+//                    System.out.println(j+"COBA LIHAT: "+cell.getNumericCellValue());
+                    this.dataUji[j][k - 1] = cell.getNumericCellValue();
+//                    System.out.println("training: "+this.dataTraining[j][k]);
+                }
+            }
+            //NGISI TARGET
+            for (int i = 1; i < 50; i++) {
+                cell = this.sheet.getRow(50 + i).getCell(9);
+                if (cell.getStringCellValue().equalsIgnoreCase("N")) {
+                    this.targetUji[i - 1] = 1;
+//                    System.out.println("target "+this.targetTraining[i]);
+                } else if (cell.getStringCellValue().equalsIgnoreCase("O")) {
+                    this.targetUji[i - 1] = -1;
+//                    System.out.println("target "+this.targetTraining[i]);
+                }
+//                System.out.println("target "+this.targetTraining[i-1]);
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public double[][] getDataUji() {
+        return this.dataUji;
+    }
+
+    public double[] getTargetUji() {
+        return this.targetUji;
     }
 }
