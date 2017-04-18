@@ -83,18 +83,22 @@ public class Adaline {
     //UPDATE BOBOT MRI
     public void updateBobotPLUSByIndex(int index, Double inputXi) {
         this.bobot.set(index, (this.bobot.get(index) + (this.getAlpha() * (1 - this.getNetAsDoubleObj()) * inputXi)));
+        this.deltaBobot.set(index, (this.getAlpha() * (1 - this.getNetAsDoubleObj()) * inputXi));
     }
 
     public void updateBiasPLUS() {
         this.setBias((this.getBias() + (this.getAlpha() * (1 - this.getNetAsDoubleObj()))));
+        this.setDeltaBias(((this.getAlpha() * (1 - this.getNetAsDoubleObj()))));
     }
 
     public void updateBobotMINUSByIndex(int index, Double inputXi) {
         this.bobot.set(index, (this.bobot.get(index) + (this.getAlpha() * (-1 - this.getNetAsDoubleObj()) * inputXi)));
+        this.deltaBobot.set(index, (this.getAlpha() * (-1 - this.getNetAsDoubleObj()) * inputXi));
     }
 
     public void updateBiasMINUS() {
         this.setBias((this.getBias() + (this.getAlpha() * (-1 - this.getNetAsDoubleObj()))));
+        this.setDeltaBias(((this.getAlpha() * (-1 - this.getNetAsDoubleObj()))));
     }
 
     public double getDeltaBobotByIndex(int index) {
